@@ -26,10 +26,10 @@ context.addRoutes(new RouteBuilder() {
 		slurpPoints.each() { targetSystem,targetUrl ->
 			from("jetty:http://0.0.0.0:$port/$targetSystem?matchOnUriPrefix=true")
 				.convertBodyTo(String.class)
-					.choice().when(body().isNull()).setBody(constant("")).end()
-					.to("file:$filePath/$targetSystem?fileName=\${exchangeId}-request")
-					.to("jetty:" + targetUrl + "?bridgeEndpoint=true")
-					.to("file:$filePath/$targetSystem?fileName=\${exchangeId}-response")
+				.choice().when(body().isNull()).setBody(constant("")).end()
+				.to("file:$filePath/$targetSystem?fileName=\${exchangeId}-request")
+				.to("jetty:" + targetUrl + "?bridgeEndpoint=true")
+				.to("file:$filePath/$targetSystem?fileName=\${exchangeId}-response")
 		}
 	}
 })
