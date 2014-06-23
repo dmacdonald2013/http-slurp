@@ -6,15 +6,13 @@
 * body pair under the directory 'google'. This also handles complete URL patterns,
 * e.g. http://host:8080/google/foo?baz=true will be proxied through to http://www.google.com/foo?baz=true.
 */
-
 @Grab(group='org.apache.camel', module='camel-core', version='2.13.1')
 @Grab(group='org.apache.camel', module='camel-jetty', version='2.13.1')
-@Grab('org.slf4j:slf4j-simple:1.6.6')
+@Grab(group='org.slf4j', module='slf4j-simple', version='1.7.7')
 
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.CamelContext
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.component.properties.PropertiesComponent
 
 def slurpPoints = [ "google" : "http://www.google.com" ]
 def port = 8080
@@ -35,5 +33,5 @@ context.addRoutes(new RouteBuilder() {
 })
 
 context.start()
-addShutdownHook{ context.stop() }
-synchronized(this){ this.wait() }
+addShutdownHook { context.stop() }
+synchronized(this) { this.wait() }
